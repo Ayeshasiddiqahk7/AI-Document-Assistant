@@ -29,7 +29,12 @@ function ChatBox({ setAnswer, setSource }) {
       const data = await response.json();
 
       setAnswer(data.answer);
-      setSource(data.source);
+
+      if (data.answer.includes("I don't know")) {
+        setSource("");
+      } else {
+        setSource(data.source);
+      }
     } catch (error) {
       console.error(error);
       setAnswer("Unable to connect to the backend.");
