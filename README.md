@@ -152,7 +152,6 @@ http://localhost:5173
 - 💬 Chat History
 - 📑 Multiple Source Documents
 - 🎯 Highlight relevant text in PDFs
-- ☁️ Deploy using Render and Vercel
 
 GitHub: https://github.com/Ayeshasiddiqahk7
 
