@@ -7,17 +7,24 @@ import Message from "./components/Message";
 import SourceList from "./components/SourceList";
 
 function App() {
-  const [answer, setAnswer] = useState(
-    "Loading AI model... Please wait."
-  );
+  const [answer, setAnswer] = useState("Loading AI model... Please wait.");
+  const [source, setSource] = useState("");
 
   return (
     <div className="app">
       <Navbar />
 
       <div className="container">
-        <ChatBox setAnswer={setAnswer} />
-        <Message answer={answer} />
+        <ChatBox
+          setAnswer={setAnswer}
+          setSource={setSource}
+        />
+
+        <Message
+          answer={answer}
+          source={source}
+        />
+
         <SourceList />
       </div>
     </div>

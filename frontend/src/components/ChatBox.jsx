@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ChatBox({ setAnswer }) {
+function ChatBox({ setAnswer, setSource }) {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -9,6 +9,7 @@ function ChatBox({ setAnswer }) {
 
     setLoading(true);
     setAnswer("Searching documents...");
+    setSource("");
 
     try {
       const response = await fetch("http://127.0.0.1:8000/ask", {
@@ -28,9 +29,11 @@ function ChatBox({ setAnswer }) {
       const data = await response.json();
 
       setAnswer(data.answer);
+      setSource(data.source);
     } catch (error) {
       console.error(error);
       setAnswer("Unable to connect to the backend.");
+      setSource("");
     } finally {
       setLoading(false);
     }
