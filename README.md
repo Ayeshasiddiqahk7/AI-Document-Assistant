@@ -45,11 +45,14 @@ AI-Document-Assistant/
 ### AI Generated Answer
 ![Answer](screenshots/answer.png)
 
-### Source Document
-![Source](screenshots/source.png)
+### swagger page
+![Source](screenshots/swagger.png)
 
 ### Opened PDF
 ![PDF](screenshots/pdf.png)
+
+### Answers
+![Answer](screenshots/answers.png)
 
 ## ⚙️ Installation
 
