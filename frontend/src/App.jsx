@@ -9,6 +9,7 @@ import SourceList from "./components/SourceList";
 function App() {
   const [answer, setAnswer] = useState("Loading AI model... Please wait.");
   const [source, setSource] = useState("");
+  const [page, setPage] = useState("");
 
   return (
     <div className="app">
@@ -18,11 +19,13 @@ function App() {
         <ChatBox
           setAnswer={setAnswer}
           setSource={setSource}
+          setPage={setPage}
         />
 
         <Message
           answer={answer}
           source={source}
+          page={page}
         />
 
         <SourceList />

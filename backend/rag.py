@@ -35,7 +35,6 @@ def initialize_rag():
 
     print("========== Initializing RAG ==========")
 
-    # Check API key
     api_key = os.getenv("GROQ_API_KEY")
 
     if not api_key:
@@ -43,14 +42,12 @@ def initialize_rag():
 
     print("Groq API Key Loaded Successfully")
 
-    # Embedding Model
     embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
     print("Embeddings Loaded")
 
-    # Load Chroma DB
     vectorstore = Chroma(
         persist_directory="./chroma_db",
         embedding_function=embeddings
@@ -58,15 +55,13 @@ def initialize_rag():
 
     print("Vector Database Loaded")
 
-    # Retriever
     retriever = vectorstore.as_retriever(
         search_type="similarity",
-        search_kwargs={"k":3}
+        search_kwargs={"k": 3}
     )
 
     print("Retriever Ready")
 
-    # Groq LLM
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",
         temperature=0
@@ -74,7 +69,6 @@ def initialize_rag():
 
     print("Groq Model Connected")
 
-    # Prompt
     prompt = ChatPromptTemplate.from_template(
         """
 You are a document question answering assistant.
@@ -95,7 +89,6 @@ Question:
 """
     )
 
-    # RAG Chain
     rag_chain = (
         {
             "context": retriever | format_docs,
@@ -120,18 +113,22 @@ def ask_question(question):
         # Generate answer
         response = rag_chain.invoke(question)
 
-        # Get source PDF
-        source_pdf = "Unknown"
+        source_pdf = ""
+        page_number = ""
 
         if docs:
             source = docs[0].metadata.get("source", "")
             source_pdf = source.replace("\\", "/").split("/")[-1]
 
+            # PyPDFLoader stores pages starting from 0
+            page_number = docs[0].metadata.get("page", 0) + 1
+
         print("Answer Generated Successfully")
 
         return {
             "answer": response.content,
-            "source": source_pdf
+            "source": source_pdf,
+            "page": page_number
         }
 
     except Exception as e:

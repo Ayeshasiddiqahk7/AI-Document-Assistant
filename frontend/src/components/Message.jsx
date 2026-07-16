@@ -1,4 +1,4 @@
-function Message({ answer, source }) {
+function Message({ answer, source, page }) {
   return (
     <div className="message-box">
       <h2>Response</h2>
@@ -35,6 +35,18 @@ function Message({ answer, source }) {
                     {source}
                   </a>
                 </div>
+
+                {page && (
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      color: "#555",
+                      fontWeight: "600",
+                    }}
+                  >
+                    📖 Page {page}
+                  </div>
+                )}
               </div>
             )}
           </>
